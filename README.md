@@ -1,4 +1,4 @@
-# rails-challenges
+# Database and Rails Challenges
 This repository holds the  database and rails challenges for the Echo 2023 cohort
 
 Process Notes
