@@ -121,19 +121,182 @@ LIMIT 1
 
 Subqueries: WITH
 Of the countries with the top 10 gnp, which has the smallest population? (HINT: Canada)
+
+WITH populated_countries AS (
+	SELECT name, population, gnp
+	FROM country
+	WHERE population > 0
+	AND gnp > 0
+	ORDER BY gnp DESC
+	LIMIT 10
+	)
+
+SELECT name, population, gnp
+FROM populated_countries
+ORDER BY population ASC
+LIMIT 1
+
 Of the 10 least populated countries with permament residents (a non-zero population), which has the largest surfacearea? (HINT: Svalbard and Jan Mayen)
+
+WITH least_populated_countries AS (
+	SELECT name, population, surfacearea
+	FROM country
+	WHERE population > 0
+	ORDER BY population ASC
+	LIMIT 10
+	)
+
+SELECT name, surfacearea
+FROM least_populated_countries
+ORDER BY surfacearea DESC
+LIMIT 1
+
 Aggregate Functions: GROUP BY
+
 Which region has the highest average gnp? (HINT: North America)
+
+SELECT region, AVG(gnp)
+FROM country
+GROUP BY region
+ORDER BY AVG(gnp) DESC
+LIMIT 1
+
 Who is the most influential head of state measured by surface area? (HINT: Elisabeth II)
+
+SELECT headofstate, SUM(surfacearea)
+FROM country
+GROUP BY headofstate
+ORDER BY SUM(surfacearea) DESC
+LIMIT 1
+
 What is the average life expectancy for all continents?
+
+SELECT continent, AVG(lifeexpectancy)
+FROM country
+GROUP BY continent
+
 What are the most common forms of government? (HINT: use count(*))
+
+SELECT governmentform, COUNT(*)
+FROM country
+GROUP BY governmentform
+ORDER BY COUNT(*) DESC
+
 How many countries are in North America?
+
+SELECT continent, COUNT(name)
+FROM country
+WHERE continent = 'North America'
+GROUP BY continent
+
 What is the total population of all continents?
+
+SELECT SUM(population)
+FROM country
+
+SELECT continent, SUM(population)
+FROM country
+GROUP BY continent
+
 Stretch Challenges
+
 Which countries have the letter ‘z’ in the name? How many?
+
+SELECT name
+FROM country
+WHERE name 
+LIKE '%z%' 
+OR name LIKE '%Z%'
+
+16 countries
+
 Of the smallest 10 countries by area, which has the biggest gnp? (HINT: Macao)
+
+WITH smallest_countries AS (
+	SELECT name, surfacearea, gnp
+	FROM country
+	ORDER BY surfacearea ASC
+	LIMIT 10
+)
+
+SELECT name, gnp
+FROM smallest_countries
+ORDER BY gnp DESC
+LIMIT 1
+
 Of the smallest 10 countries by population, which has the biggest per capita gnp?
+
+WITH smallest_countries AS (
+	SELECT name, population, capital
+	FROM country
+	WHERE population > 0
+	ORDER BY population ASC
+	LIMIT 10
+)
+
+SELECT name, capital
+FROM smallest_countries
+ORDER BY capital DESC
+LIMIT 1
+
+"Holy See (Vatican City State)"
+
 Of the biggest 10 countries by area, which has the biggest gnp?
+
+WITH biggest_countries AS (
+	SELECT name, surfacearea, gnp
+	FROM country
+	ORDER BY surfacearea DESC
+	LIMIT 10
+)
+
+SELECT name, gnp
+FROM biggest_countries
+ORDER BY gnp DESC
+LIMIT 1
+
+United States
+
 Of the biggest 10 countries by population, which has the biggest per capita gnp?
+
+WITH biggest_countries AS (
+	SELECT name, population, capital
+	FROM country
+	ORDER BY population DESC
+	LIMIT 10
+)
+
+SELECT name, capital
+FROM biggest_countries
+ORDER BY capital DESC
+LIMIT 1
+
+United States
+
 What is the sum of surface area of the 10 biggest countries in the world? The 10 smallest?
+
+WITH biggest_countries AS (
+	SELECT name, surfacearea
+	FROM country
+	ORDER BY surfacearea DESC
+	LIMIT 10
+)
+
+SELECT SUM(surfacearea) AS total
+FROM biggest_countries
+
+8.4183616e+07
+
+WITH smallest_countries AS (
+	SELECT name, surfacearea
+	FROM country
+	ORDER BY surfacearea ASC
+	LIMIT 10
+)
+
+SELECT SUM(surfacearea) AS total
+FROM smallest_countries
+
+150.9
+
 What year is this country database from? Cross reference various pieces of information to determine the age of this database.
