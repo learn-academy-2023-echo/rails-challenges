@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_21_205505) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_21_230419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_21_205505) do
     t.integer "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["street_number", "street_name", "zip"], name: "index_addresses_on_street_number_and_street_name_and_zip", unique: true
   end
 
 end

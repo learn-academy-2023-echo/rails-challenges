@@ -35,4 +35,8 @@ RSpec.describe Account, type: :model do
     account_3 = Account.create(username: 'peter345', password: 'hello345', email: 'peter@learn.org')
     expect(account_3.errors[:password]).to_not be_empty
   end
+  it 'is not valid without a nummber in the password' do
+  account_6 = Account.create(username: 'peter123', password: 'peteratlearn', email: 'peter@learn.org')
+  expect(account_6.errors[:password]).to_not be_empty
+  end
 end
