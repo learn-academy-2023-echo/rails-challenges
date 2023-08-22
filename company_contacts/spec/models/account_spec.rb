@@ -7,7 +7,7 @@ RSpec.describe Account, type: :model do
   end
 
   it 'is not valid if username is less than 5 characters' do
-    account_1 = Account.create(username:'bkt')
+    account_1 = Account.create(username:'bkt', password:'123abc', email:'bktran123@hotmail.com')
     expect(account_1.errors[:username]).to_not be_empty
   end
 
@@ -28,4 +28,10 @@ RSpec.describe Account, type: :model do
     expect(account_2.errors[:password]).to_not be_empty
   end
 
+  it 'password must include at least 1 number' do
+    account_1 = Account.create(username:'bktran123', password:'abcd', email:'bktran123@hotmail.com')
+    expect(account_1.errors[:password]).to_not be_empty
+  end
+
 end
+

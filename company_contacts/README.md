@@ -10,16 +10,15 @@ As a developer, I need each password to be at least 6 characters long.✅
 
 As a developer, I need each password to be unique.✅
 
-As a developer, I want my Account model to have many associated Addresses. 
+As a developer, I want my Account model to have many associated Addresses. ✅
 
-As a developer, I want Address to have street_number, street_name, city, state, and zip attributes. The street_number and zip should be integers.
+As a developer, I want Address to have street_number, street_name, city, state, and zip attributes. The street_number and zip should be integers.✅
 
-As a developer, I want to validate the presence of all fields on Address.
+As a developer, I want to validate the presence of all fields on Address. ✅
 
 Stretch Challenges
 
 As a developer, I need each Account password to have at least one number.
-
 HINT: Read about custom validations in the Active Record validation docs.
 
 As a developer, I want to validate that Address street_number, street_name, zip are unique for within an account.
