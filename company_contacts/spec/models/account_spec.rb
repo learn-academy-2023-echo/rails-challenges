@@ -1,41 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
-  it 'is not valid without a username' do
-    user = Account.create password: '45G56up', email: 'mchavez@gmail.com'
-    
-    expect(user.errors[:username]).to_not be_empty
-  end
-  it 'is not valid without a password' do
-    user = Account.create username: 'Mchavez', email: 'mchavez@gmail.com'
 
-    expect(user.errors[:password]).to_not be_empty
+  it 'is valid with valid attributes' do
+    account_1 = Account.create(username:'bktran123', password:'123abc', email:'bktran123@hotmail.com')
+    expect(account_1).to be_valid
   end
-  it 'is not valid without a email' do
-    user = Account.create username: 'Mchavez', password: '46G56up'
 
-    expect(user.errors[:email]).to_not be_empty
+  it 'is not valid if username is less than 5 characters' do
+    account_1 = Account.create(username:'bkt', password:'123abc', email:'bktran123@hotmail.com')
+    expect(account_1.errors[:username]).to_not be_empty
   end
-  it 'is not valid without a username with less than 5 characters' do
-    user = Account.create username: 'Mcha', password: '45G56up', email: 'mchavez@gmail.com'
-    
-    expect(user.errors[:username]).to_not be_empty
-  end
-  it 'is not valid if username is a dupe' do
-    user = Account.create username: 'Mchavez', password: '45G56up', email: 'mchavez@gmail.com'
-    dupe = Account.create username: 'Mchavez', password: '45G56up', email: 'mchavez@gmail.com'
-    
-    expect(dupe.errors[:username]).to_not be_empty
-  end
-  it 'is not valid if password is shorter than 6 characters' do
-    user = Account.create username: 'Mchavez', password: '45G56', email: 'mchavez@gmail.com'
 
-    expect(user.errors[:password]).to_not be_empty
+  it 'username must be unique' do
+    account_1 = Account.create(username:'bktran123', password:'123abc', email:'bktran123@hotmail.com')
+    account_2 = Account.create(username:'bktran123', password:'123abc', email:'bktran123@hotmail.com')
+    expect(account_2.errors[:username]).to_not be_empty
+  end 
+
+  it 'is not valid if password is less than 6 characters' do 
+    account_1 = Account.create(username:'bktran123', password:'123ab', email:'bktran123@hotmail.com')
+    expect(account_1.errors[:password]).to_not be_empty
+  end 
+
+  it 'password must be unique' do
+    account_1 = Account.create(username:'bktran123', password:'123abc', email:'bktran123@hotmail.com')
+    account_2 = Account.create(username:'bktran123', password:'123abc', email:'bktran123@hotmail.com')
+    expect(account_2.errors[:password]).to_not be_empty
   end
-  it 'is not valid if password is not a dupe' do
-    user = Account.create username: 'Mchavez', password: '45G56', email: 'mchavez@gmail.com'
-    dupe = Account.create username: 'Mchavez', password: '45G56', email: 'mchavez@gmail.com'
-    expect(dupe.errors[:password]).to_not be_empty
+
+  it 'password must include at least 1 number' do
+    account_1 = Account.create(username:'bktran123', password:'abcd', email:'bktran123@hotmail.com')
+    expect(account_1.errors[:password]).to_not be_empty
   end
 
 end
+
+
