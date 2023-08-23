@@ -1,5 +1,6 @@
 
 
+
 As a developer, I need username, password, and email to be required. ✅
 
 As a developer, I need every username to be at least 5 characters long.✅
@@ -16,10 +17,12 @@ As a developer, I want Address to have street_number, street_name, city, state, 
 
 As a developer, I want to validate the presence of all fields on Address. ✅
 
+
 Stretch Challenges
 
 As a developer, I need each Account password to have at least one number.
 HINT: Read about custom validations in the Active Record validation docs.
+
 
 As a developer, I want to validate that Address street_number, street_name, zip are unique for within an account.
 HINT: Read about :scope in the Active Record validation docs.
@@ -29,3 +32,4 @@ HINT: Read about numericality in the Active Record validation docs.
 
 As a developer, I want to see a custom error message that says "Please, input numbers only" if street_number or zip code are not numbers.
 HINT: Read about message in the validation docs.
+

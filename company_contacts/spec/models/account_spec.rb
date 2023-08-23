@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
+
   it 'is valid with valid attributes' do
     account_1 = Account.create(username:'bktran123', password:'123abc', email:'bktran123@hotmail.com')
     expect(account_1).to be_valid
@@ -34,4 +35,5 @@ RSpec.describe Account, type: :model do
   end
 
 end
+
 
